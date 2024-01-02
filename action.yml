@@ -12,11 +12,11 @@ inputs:
   release-branch:
     description: 'The name of the release branch'
     required: true
-    default: master
+    default: release
   dev-branch:
     description: 'The name of the dev branch'
     required: true
-    default: dev
+    default: test-actions
   minor-identifier:
     description: 'The string or regex to identify a minor release commit'
     required: true
@@ -45,12 +45,12 @@ runs:
     - shell: bash
       run: |
         set -eo pipefail
-        if [ "${{ inputs.tool-version }}" = "latest" ]; then
-          download_url="$(curl -Ls https://api.github.com/repos/codacy/git-version/releases/latest | jq -r .assets[0].browser_download_url)"
-        else
-          download_url="https://github.com/codacy/git-version/releases/download/${{ inputs.tool-version }}/git-version"
-        fi
-        curl -Ls "$download_url" > /usr/local/bin/git-version
+        #if [ "${{ inputs.tool-version }}" = "latest" ]; then
+        #  download_url="$(curl -Ls https://api.github.com/repos/codacy/git-version/releases/latest | jq -r .assets[0].browser_download_url)"
+        #else
+        #  download_url="https://github.com/codacy/git-version/releases/download/${{ inputs.tool-version }}/git-version"
+        #fi
+        #curl -Ls "$download_url" > /usr/local/bin/git-version
         chmod +x /usr/local/bin/git-version
     - id: previous-version
       shell: bash
